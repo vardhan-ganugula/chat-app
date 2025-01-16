@@ -2,6 +2,7 @@ import { signupSchema, loginSchema } from "../lib/zodSchema.lib.js";
 import bcryptjs from "bcryptjs";
 import User from "../models/user.model.js";
 import { generateToken } from "../lib/utils.js";
+import cloudinary from "../lib/cloudinary.js";
 
 export async function signup(req, res) {
   const details = req.body;
@@ -125,5 +126,61 @@ export async function logout(req, res) {
   return res.cookie("token", "").json({
     status: "success",
     message: "User logged out successfully",
-  })
+  });
+}
+
+export async function updateProfile(req, res) {
+  try {
+    const { profilePic } = req.body;
+    const userId = req.user._id;
+
+    if (!profilePic) {
+      return res.status(400).json({
+        status: "error",
+        message: "Profile picture is required",
+      });
+    }
+
+    const uploadResponse = await cloudinary.uploader.upload(profilePic);
+
+    const updateUser = await User.findByIdAndUpdate(
+      {_id:userId},
+      {
+        profilePic: uploadResponse.secure_url,
+      },
+      { new: true }
+    );
+
+    return res.status(200).json({
+      status: "success",
+      message: "Profile updated successfully",
+      data: {
+        email: updateUser.email,
+        username: updateUser.username,
+        profilePic: updateUser.profilePic,
+      },
+    });
+
+
+
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({
+      status: "error",
+      message: "Internal server error",
+    });
+  }
+}
+
+export async function getProfile(req, res) {
+  try {
+    return res.status(200).json(req.user);   
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({
+      status: "error",
+      message: "Internal server error",
+    });
+    
+  }
 }
