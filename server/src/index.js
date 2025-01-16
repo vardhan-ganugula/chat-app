@@ -5,8 +5,11 @@ import messageRouter from '../routes/message.route.js';
 import {connectDB} from '../lib/db.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-const app = express();
+import path from path;
 
+
+const app = express();
+const __dirname = path.resolve();
 
 config();
 connectDB();
@@ -19,9 +22,17 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
+
+
 // routers
 app.use('/api/auth', authRouter);
 app.use('/api/messages', messageRouter)
+if(process.env.NODE_ENV === 'production'){
+  app.use(express.static(path.join(__dirname, '../client/dist')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+  })
+
 
 const port = process.env.PORT || 8000; 
 app.listen(port, () => {
