@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 // routers
 app.use('/api/auth', authRouter);
-app.use('/api/message', messageRouter)
+app.use('/api/messages', messageRouter)
 
 const port = process.env.PORT || 8000; 
 app.listen(port, () => {

@@ -1,8 +1,17 @@
 import React from 'react'
 
 const Profile = () => {
+
+  
   return (
-    <div>Profile</div>
+    <div>
+
+      <form onSubmit={handleUplaodImage}>
+        <input type="file" accept='images/*' />
+        <button type='submit'>Upload</button>
+      </form>
+
+    </div>
   )
 }
 

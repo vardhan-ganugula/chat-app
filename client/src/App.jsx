@@ -4,10 +4,11 @@ import { useAuthStore } from "./store/useAuthStrore";
 import { useEffect } from "react";
 
 function App() {
-  const { checkAuth, isCheckingAuth, authUser } = useAuthStore();
+  const { checkAuth, isCheckingAuth, authUser, isLoggedIn } = useAuthStore();
 
   useEffect(() => {
     checkAuth();
+    console.log(isLoggedIn)
   }, [checkAuth]);
 
   if ((isCheckingAuth && !authUser)) {
@@ -17,12 +18,12 @@ function App() {
   return (
     <>
       <Header />
-      <main className="min-h-screen">
+      <main className="min-h-[90vh]">
       <Routes>
-        <Route path="/" element={authUser ? <Homepage /> : <Navigate to='/login' />} />
-        <Route path="/profile" element={authUser ? <Profile /> : <Navigate to='/login' />} />
-        <Route path="/login" element={!authUser ? <Login /> : <Navigate to='/' />} />
-        <Route path="/signup" element={!authUser ? <Signup /> : <Navigate to='/' />} />
+        <Route path="/" element={isLoggedIn ? <Homepage /> : <Navigate to='/login' />} />
+        <Route path="/profile" element={isLoggedIn ? <Profile /> : <Navigate to='/login' />} />
+        <Route path="/login" element={!isLoggedIn ? <Login /> : <Navigate to='/' />} />
+        <Route path="/signup" element={!isLoggedIn ? <Signup /> : <Navigate to='/' />} />
         <Route path="/logout" element={<Logout/>} />
       </Routes>
       </main>

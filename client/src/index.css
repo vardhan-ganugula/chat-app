@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-    font-family: "Poppins", serif;
+* {
+  font-family: "Poppins", serif;
+}
+.cursiveFont {
+  font-family: "Pacifico", serif;
+}
+
+.hoverEffect{
+  position: relative;
+}
+.hoverEffect::before{
+  content: '';
+  position: absolute;
+  bottom: 0;
+  height: 3px;
+  left: 50%;
+  transform: translate(-50%, 5px);
+  width: 0px;
+  background-color: #3b82f6;
+  transition: all 0.3s ease-in-out; 
+}
+.hoverEffect.active::before, .hoverEffect:hover::before{
+  width: 100%;
 }
