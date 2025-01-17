@@ -3,13 +3,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema } from "../lib/zodSchema";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import axiosInstance from "../lib/axios";
-import { toast } from "react-toastify";
-import { isAxiosError } from "axios";
 import { useAuthStore } from "../store/useAuthStrore";
 
 const Signup = () => {
-  const { setLoginState, setAuthUser } = useAuthStore();
+  const { signup } = useAuthStore();
   const {
     register,
     formState: { errors, isSubmitting },
@@ -23,23 +20,7 @@ const Signup = () => {
     },
   });
 
-  const handleSignup = async (data) => {
-    try {
-      const response = await axiosInstance.post("/auth/signup", data);
-      toast.success(response.data.message);
-      if (response.data.status === "success") {
-        setLoginState(true);
-        setAuthUser(response.data.data);
-      }
-    } catch (error) {
-      console.log(error);
-      if (isAxiosError(error) && error.response) {
-        toast.error(error.response.data.message);
-      }else{
-        toast.error("Something went wrong");
-      }
-    }
-  };
+  const handleSignup = async (data) => signup(data);
 
   return ( 
     <div className="w-full h-[90vh] flex items-center justify-center">

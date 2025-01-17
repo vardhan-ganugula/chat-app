@@ -3,32 +3,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../lib/zodSchema";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import axiosInstance from "../lib/axios";
-import { toast } from "react-toastify";
-import { isAxiosError } from "axios";
 import { useAuthStore } from "../store/useAuthStrore";
 
 
 const Login = () => {
-  const { setLoginState, setAuthUser } = useAuthStore();
-  const handleSignIn = async (data) => {
-    try {
-      const response = await axiosInstance.post("/auth/login", data);
-      console.log(response.data);
-      toast.success(response.data.message);
-      if(response.data.status === 'success'){
-        setLoginState(true)
-        setAuthUser(response.data.data)
-      }
-    } catch (error) {
-      console.log(error);
-      if (isAxiosError(error)) {
-        toast.error(error.response.data.message);
-      } else {
-        toast.error(error.message);
-      }
-    }
-  };
+  const {login } = useAuthStore();
 
   const {
     formState: { errors, isSubmitting },
@@ -47,13 +26,13 @@ const Login = () => {
       <div className="bg-white shadow border">
         <div className="w-[350px] py-3 border-b border-zinc-700">
           <h1 className="text-left px-5 pt-5 text-blue-600 font-semibold text-lg">
-            SignUp
+            Login
           </h1>
         </div>
         <div>
           <form
             className="w-[350px] h-full p-4"
-            onSubmit={handleSubmit(handleSignIn)}
+            onSubmit={handleSubmit((data) => login(data))}
           >
             <div className="w-full flex-col gap-2 py-2 flex">
               <label htmlFor="email" className="text-black font-semibold">

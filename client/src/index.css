@@ -26,3 +26,6 @@
 .hoverEffect.active::before, .hoverEffect:hover::before{
   width: 100%;
 }
+.profileImage{
+  background: url('./assets/images/cat.png');
+}

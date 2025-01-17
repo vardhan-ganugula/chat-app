@@ -8,7 +8,6 @@ function App() {
 
   useEffect(() => {
     checkAuth();
-    console.log(isLoggedIn)
   }, [checkAuth]);
 
   if ((isCheckingAuth && !authUser)) {

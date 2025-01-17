@@ -5,12 +5,13 @@ import { useAuthStore } from '../store/useAuthStrore'
 
 
 const Logout = () => {
-  const {setLoginState, setAuthUser} = useAuthStore();
+  const {setLoginState, setAuthUser, disconnectSocket} = useAuthStore();
 
   useEffect(() => {
     axiosInstance.get('/auth/logout').then(res => {
       setLoginState(false)
       setAuthUser(null)
+      disconnectSocket()
     }).catch(err => {
       console.log(err)
       toast.error('something went wrong')

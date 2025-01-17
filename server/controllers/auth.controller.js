@@ -111,6 +111,7 @@ export async function login(req, res) {
         data: {
           email: user.email,
           username: user.username,
+          _id: user._id,
         },
       });
   } catch (error) {
