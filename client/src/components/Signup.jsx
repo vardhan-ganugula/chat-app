@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema } from "../lib/zodSchema";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { Loader2, Mail, Lock, User } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStrore";
 
 const Signup = () => {
@@ -13,90 +13,78 @@ const Signup = () => {
     handleSubmit,
   } = useForm({
     resolver: zodResolver(signupSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-      username: "",
-    },
+    defaultValues: { email: "", password: "", username: "" },
   });
 
-  const handleSignup = async (data) => signup(data);
-
-  return ( 
-    <div className="w-full h-[90vh] flex items-center justify-center">
-      <div className="bg-white shadow border">
-        <div className="w-[350px] py-3 border-b border-zinc-700">
-          <h1 className="text-left px-5 pt-5 text-blue-600 font-semibold text-lg">
-            SignUp
-          </h1>
+  return (
+    <div className="min-h-[90vh] bg-gradient-to-b from-blue-50 to-white flex items-center justify-center p-4">
+      <div className="w-full max-w-md bg-white rounded-xl shadow-xl overflow-hidden">
+        <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6">
+          <h1 className="text-2xl font-bold text-white">Create Account</h1>
+          <p className="text-blue-100 mt-1">Join our community today</p>
         </div>
-        <div>
-          <form
-            className="w-[350px] h-full p-4"
-            onSubmit={handleSubmit(handleSignup)}
-          >
-            <div className="w-full flex-col gap-2 py-2 flex">
-              <label htmlFor="username" className="text-zinc-800 font-semibold">
-                username
-              </label>
+
+        <form className="p-6 space-y-6" onSubmit={handleSubmit(signup)}>
+          <div className="space-y-2">
+            <div className="relative">
+              <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
               <input
                 type="text"
-                id="username"
-                className="p-2 border-2 border-blue-400 focus:ring-0 focus:border-2 focus:border-blue-600 outline-none"
-                {...register("username", { required: "Username is required" })}
+                placeholder="Username"
+                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                {...register("username")}
               />
-              {errors.username && (
-                <p className="text-red-500 text-sm">
-                  {errors.username.message}
-                </p>
-              )}
             </div>
-            <div className="w-full flex-col gap-2 py-2 flex">
-              <label htmlFor="email" className="text-black font-semibold">
-                email
-              </label>
+            {errors.username && (
+              <p className="text-red-500 text-sm">{errors.username.message}</p>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <div className="relative">
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
               <input
                 type="email"
-                id="email"
-                className="p-2 border-2 border-blue-400 focus:ring-0 focus:border-2 focus:border-blue-600 outline-none"
-                {...register("email", { required: "email is required" })}
+                placeholder="Email"
+                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                {...register("email")}
               />
-              {errors.email && (
-                <p className="text-red-500 text-sm">{errors.email.message}</p>
-              )}
             </div>
-            <div className="w-full flex-col gap-2 py-2 flex">
-              <label htmlFor="password" className="text-black font-semibold">
-                password
-              </label>
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email.message}</p>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <div className="relative">
+              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
               <input
                 type="password"
-                id="password"
-                className="p-2 border-2 border-blue-400 focus:ring-0 focus:border-2 focus:border-blue-600 outline-none"
-                {...register("password", { required: "password is required" })}
+                placeholder="Password"
+                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                {...register("password")}
               />
-              {errors.password && (
-                <p className="text-red-500 text-sm">
-                  {errors.password.message}
-                </p>
-              )}
             </div>
-            <div className="w-full flex-col gap-2 py-2 flex">
-              <button className="w-full py-2 mt-3 justify-center bg-blue-500 text-white flex gap-3 items-center">
-                {isSubmitting ? (
-                  <>
-                    <span className="animate-spin text-lg">
-                      <AiOutlineLoading3Quarters />
-                    </span>
-                    <span>Submitting...</span>
-                  </>
-                ) : (
-                  "Submit"
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
+            {errors.password && (
+              <p className="text-red-500 text-sm">{errors.password.message}</p>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors flex items-center justify-center space-x-2 disabled:opacity-70"
+          >
+            {isSubmitting ? (
+              <>
+                <Loader2 className="h-5 w-5 animate-spin" />
+                <span>Creating account...</span>
+              </>
+            ) : (
+              "Sign Up"
+            )}
+          </button>
+        </form>
       </div>
     </div>
   );

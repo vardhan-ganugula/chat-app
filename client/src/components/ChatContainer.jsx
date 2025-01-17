@@ -88,7 +88,7 @@ const ChatContainer = () => {
               />
             </div>
             <div
-              className={`max-w-[70%] rounded-2xl px-4 py-2 ${
+              className={`max-w-[70%] rounded-2xl px-4 py-2  ${
                 message.senderId === selectedUser._id
                   ? "bg-gray-100 text-gray-900"
                   : "bg-blue-600 text-white"

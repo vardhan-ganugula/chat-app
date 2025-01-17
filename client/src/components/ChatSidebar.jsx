@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useAuthStore } from "../store/useAuthStrore";
 import ChatBox from "./ChatBox";
 import { useChatStore } from "../store/useChatStore";
@@ -7,19 +7,29 @@ import debounce from "lodash.debounce";
 
 
 const ChatSidebar = () => {
-  const { authUser } = useAuthStore();
+  const { authUser,onlineUsers } = useAuthStore();
   const { users, isUsersLoading, getUsers } = useChatStore();
+
+  const [sidebarUsers, setSidebarUsers] = useState([]);
+
+
+  const handleSearch = useCallback(debounce((e)=> {
+    const username = (e.target.value);
+    const newUsers = users.filter(user => user.username.toLowerCase().includes(username.toLowerCase()));
+    setSidebarUsers(newUsers);
+  }, 500) , [users]);
+
 
   useEffect(() => {
     getUsers();
-  }, []);
-
-  const handleSearch = useCallback(debounce((value)=> {
-    console.log(value.target.value);
-  }, 500) , []);
+  }, [getUsers]);
+  
+  useEffect(() => {
+    setSidebarUsers(users);
+  }, [users, setSidebarUsers]);
 
   return (
-    <aside className="flex h-full flex-col border-r border-gray-200 bg-white shadow-sm">
+    <aside className="flex h-full flex-col border-r border-gray-200 bg-white shadow-sm rounded-lg">
       {/* Header */}
       <div className="flex h-20 items-center border-b border-gray-200 px-4">
         <div className="flex items-center gap-3">
@@ -30,9 +40,14 @@ const ChatSidebar = () => {
             <span className="hidden text-lg font-semibold text-gray-900 lg:block">
               Contacts
             </span>
+            <div className="flex gap-3">
             <span className="hidden text-sm text-gray-500 lg:block">
-              {users?.length || 0} available
+            <span className="text-blue-500">{users?.length || 0} </span>available
             </span>
+            <span className="hidden text-sm text-gray-500 lg:block">
+            <span className="text-green-500"> {onlineUsers?.length-1 || 0} </span> online
+            </span>
+            </div>
           </div>
         </div>
       </div>
@@ -61,9 +76,9 @@ const ChatSidebar = () => {
               <p className="text-sm text-gray-600">Loading contacts...</p>
             </div>
           </div>
-        ) : users && users.length > 0 ? (
+        ) : sidebarUsers && sidebarUsers.length > 0 ? (
           <div className="divide-y divide-gray-100">
-            {users.map((user) => (
+            {sidebarUsers.map((user) => (
               <ChatBox key={user._id} user={user} />
             ))}
           </div>
@@ -83,7 +98,7 @@ const ChatSidebar = () => {
             <div className="h-10 w-10 rounded-full bg-gray-200">
               {/* User avatar could go here */}
               <div className="flex h-full w-full items-center justify-center rounded-full bg-blue-100 text-blue-600">
-                {authUser.name?.charAt(0).toUpperCase()}
+                {authUser.username?.charAt(0).toUpperCase()}
               </div>
             </div>
             <div className="hidden flex-1 lg:block">
