@@ -17,7 +17,7 @@ const ChatContainer = () => {
     unsubscribeFromMessages,
   } = useChatStore();
 
-  const { onlineUsers } = useAuthStore();
+  const { onlineUsers, authUser } = useAuthStore();
   const [imageSrc, setImageSrc] = useState(null);
   const messagesEndRef = useRef(null);
   const [isSending, setIsSending] = useState(false);
@@ -129,7 +129,7 @@ const ChatContainer = () => {
           >
             <div className="h-8 w-8 flex-shrink-0 overflow-hidden rounded-full">
               <img
-                src={selectedUser.profilePic || ProfilePic}
+                src={message.senderId === selectedUser._id ? selectedUser.profilePic : authUser.profilePic || ProfilePic}
                 alt=""
                 className="h-full w-full object-cover"
               />
