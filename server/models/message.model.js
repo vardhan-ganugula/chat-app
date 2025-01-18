@@ -17,7 +17,14 @@ const messageSchema = new Schema({
     },
     image: {
         type: String
+    },
+    expiryDate: {
+        type: Date,
+        default: Date.now() + (300 * 1000)
     }
 }, {timestamps: true})
+
+messageSchema.index({ expiryDate: 1 }, { expireAfterSeconds: 0 });
+
 
 export default model('Message', messageSchema)
