@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageSquare, Users, Smile, MessageCircle } from 'lucide-react';
+import { MessageSquare, Users, Smile, MessageCircle, History } from 'lucide-react';
 
 const NoChatContainer = () => {
   return (
@@ -32,11 +32,11 @@ const NoChatContainer = () => {
           </div>
           <div className='p-4 bg-gray-50 rounded-lg border border-gray-100 flex flex-col items-center gap-2'>
             <div className='h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center'>
-              <Users size={20} className='text-blue-600' />
+              <History size={20} className='text-blue-600' />
             </div>
-            <p className='text-sm font-medium text-gray-800'>Group Chats</p>
-            <p className='text-xs text-gray-600 text-center'>Connect with multiple users at once</p>
-            <p className='text-xs text-gray-500 text-center'>available soon</p>
+            <p className='text-sm font-medium text-gray-800'>Auto Delete</p>
+            <p className='text-xs text-gray-600 text-center'>all messages will automatically deleted after 5 minutes</p>
+            <p className='text-xs text-gray-500 text-center'>except: demo accounts</p>
           </div>
         </div>
 

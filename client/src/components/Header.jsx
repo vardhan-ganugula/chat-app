@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStrore";
-import { MessageSquare, User, LogOut, LogIn, UserPlus } from "lucide-react";
+import { MessageCircle, User, LogOut, LogIn, UserPlus } from "lucide-react";
 
 const Header = () => {
   const { isLoggedIn } = useAuthStore();
@@ -16,7 +16,7 @@ const Header = () => {
               to="/"
               className="flex items-center space-x-2 text-white hover:text-blue-100 transition duration-150"
             >
-              <MessageSquare className="h-8 w-8" />
+              <MessageCircle className="h-8 w-8" />
               <span className="text-2xl font-bold">VChat</span>
             </Link>
           </div>
