@@ -22,7 +22,7 @@ const Header = () => {
           </div>
 
           {/* Navigation */}
-          <nav className="flex items-center space-x-4">
+          <nav className="flex items-center space-x-4 text-sm">
             {!isLoggedIn ? (
               <>
                 <NavLink
@@ -36,7 +36,7 @@ const Header = () => {
                   }
                 >
                   <LogIn className="h-5 w-5" />
-                  <span>Login</span>
+                  <span className="hidden md:block">Login</span>
                 </NavLink>
                 <NavLink
                   to="/signup"
@@ -49,7 +49,7 @@ const Header = () => {
                   }
                 >
                   <UserPlus className="h-5 w-5" />
-                  <span>Signup</span>
+                  <span className="hidden md:block">Signup</span>
                 </NavLink>
               </>
             ) : (
@@ -57,7 +57,7 @@ const Header = () => {
                 <NavLink
                   to="/profile"
                   className={({ isActive }) =>
-                    `flex items-center space-x-2 px-4 py-2 rounded-lg transition duration-150 ${
+                    `flex items-center space-x-2 md:px-4 py-2 rounded-lg transition duration-150 ${
                       isActive
                         ? "bg-white text-blue-600"
                         : "text-white hover:bg-blue-700"
@@ -65,7 +65,7 @@ const Header = () => {
                   }
                 >
                   <User className="h-5 w-5" />
-                  <span>Profile</span>
+                  <span className="hidden md:block">Profile</span>
                 </NavLink>
                 <NavLink
                   to="/logout"
@@ -78,7 +78,7 @@ const Header = () => {
                   }
                 >
                   <LogOut className="h-5 w-5" />
-                  <span>Logout</span>
+                  <span className="hidden md:block">Logout</span>
                 </NavLink>
               </>
             )}

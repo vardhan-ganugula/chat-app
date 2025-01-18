@@ -29,7 +29,7 @@ const ChatSidebar = () => {
   }, [users, setSidebarUsers]);
 
   return (
-    <aside className="flex h-full flex-col border-r border-gray-200 bg-white shadow-sm rounded-lg">
+    <aside className="flex md:h-full flex-col border-r border-gray-200 bg-white shadow-sm rounded-lg">
       {/* Header */}
       <div className="flex h-20 items-center border-b border-gray-200 px-4">
         <div className="flex items-center gap-3">
@@ -45,7 +45,7 @@ const ChatSidebar = () => {
             <span className="text-blue-500">{users?.length || 0} </span>available
             </span>
             <span className="hidden text-sm text-gray-500 lg:block">
-            <span className="text-green-500"> {onlineUsers?.length-1 || 0} </span> online
+            <span className="text-green-500"> {onlineUsers?.length !==0 && onlineUsers?.length-1 || 0} </span> online
             </span>
             </div>
           </div>
@@ -77,7 +77,7 @@ const ChatSidebar = () => {
             </div>
           </div>
         ) : sidebarUsers && sidebarUsers.length > 0 ? (
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-gray-100 flex overflow-x-auto flex-row md:flex-col md:overflow-x-hidden">
             {sidebarUsers.map((user) => (
               <ChatBox key={user._id} user={user} />
             ))}
@@ -101,7 +101,7 @@ const ChatSidebar = () => {
                 {authUser.username?.charAt(0).toUpperCase()}
               </div>
             </div>
-            <div className="hidden flex-1 lg:block">
+            <div className="flex-1">
               <p className="font-medium text-gray-900">{authUser.name}</p>
               <p className="text-sm text-gray-500">{authUser.email}</p>
             </div>

@@ -15,19 +15,18 @@ const ChatBox = ({ user }) => {
 
   return (
     <div 
-      className={`
-        relative flex items-center gap-4 p-4 cursor-pointer
+      className={` h-full w-24 md:w-full flex-shrink-0
+        relative flex items-center md:gap-4 p-4 cursor-pointer
         transition-all duration-100 ease-in
         hover:bg-gray-50 group
         ${isSelected ? 'bg-blue-50 hover:bg-blue-50' : ''}
-        before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1
-        before:transition-colors before:duration-200
+        md:before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1
+        before:transition-colors before:duration-200 
         ${isSelected ? 'before:bg-blue-500' : 'before:bg-transparent'}
         hover:before:bg-gray-200
       `}
       onClick={() => {
         setSelectedUser(user);
-        console.log('clicking');
       }}
     >
       {/* User Avatar with Online Indicator */}
@@ -45,7 +44,7 @@ const ChatBox = ({ user }) => {
       </div>
 
       {/* User Info */}
-      <div className="hidden flex-1 min-w-0 lg:block">
+      <div className="hidden flex-1 min-w-0 md:block">
         <div className="flex items-center justify-between">
           <h3 className="font-medium text-gray-900 truncate pointer-events-none">
             {user.username}

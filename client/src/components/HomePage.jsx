@@ -6,10 +6,10 @@ const HomePage = () => {
   const { selectedUser } = useChatStore();
 
   return (
-    <main className="w-full h-screen flex py-9 justify-center bg-slate-100">
+    <div className="w-full h-screen flex py-9 justify-center bg-slate-100">
       <section className="container flex flex-col md:flex-row h-[85vh] shadow-lg w-full bg-white rounded">
         {/* Sidebar */}
-        <div className="w-full md:w-1/3 lg:w-1/4 h-full">
+        <div className="w-full md:w-1/3 lg:w-1/4 md:h-full">
           <ChatSidebar />
         </div>
 
@@ -22,7 +22,7 @@ const HomePage = () => {
           )}
         </div>
       </section>
-    </main>
+    </div>
   );
 };
 
