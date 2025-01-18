@@ -129,7 +129,7 @@ const ChatContainer = () => {
           >
             <div className="h-8 w-8 flex-shrink-0 overflow-hidden rounded-full">
               <img
-                src={selectedUser.profile || ProfilePic}
+                src={selectedUser.profilePic || ProfilePic}
                 alt=""
                 className="h-full w-full object-cover"
               />
