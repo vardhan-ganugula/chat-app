@@ -15,9 +15,14 @@ connectDB();
 
 // middlewares 
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: [
+    'http://localhost:5174/',
+    'http://localhost:5173/',
+    'https://vandron.pages.dev/'
+  ],
   credentials: true
 }));
+
 app.use(express.json({
   limit: '10mb'
 }));
